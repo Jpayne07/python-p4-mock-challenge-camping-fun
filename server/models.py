@@ -23,7 +23,8 @@ class Activity(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     difficulty = db.Column(db.Integer)
-
+    campers = association_proxy('signups', 'camper',
+                                creator = lambda camper_obj: Signup(camper = camper_obj))
     # Add relationship
     
     # Add serialization rules
@@ -55,7 +56,8 @@ class Signup(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     time = db.Column(db.Integer)
-
+    activity_id = db.Column(db.Integer, db.ForeignKey("campers.id"))
+    camper_id = db.Column(db.Integer, db.ForeignKey("activities.id"))
     # Add relationships
     
     # Add serialization rules
