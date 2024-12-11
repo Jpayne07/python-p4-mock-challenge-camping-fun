@@ -47,6 +47,7 @@ class TestApp:
             db.session.commit()
 
             response = app.test_client().get(f'/campers/{camper.id}').json
+            # breakpoint()
             assert response['name'] == camper.name
             assert response['age'] == camper.age
             assert response['signups']

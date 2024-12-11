@@ -1,8 +1,8 @@
-"""initial model
+"""done
 
-Revision ID: efd38f3f3851
+Revision ID: ec6ed82cffac
 Revises: 
-Create Date: 2024-12-07 23:45:30.311819
+Create Date: 2024-12-08 01:22:33.855439
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'efd38f3f3851'
+revision = 'ec6ed82cffac'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -33,6 +33,10 @@ def upgrade():
     op.create_table('signups',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('time', sa.Integer(), nullable=True),
+    sa.Column('activity_id', sa.Integer(), nullable=True),
+    sa.Column('camper_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['activity_id'], ['activities.id'], name=op.f('fk_signups_activity_id_activities')),
+    sa.ForeignKeyConstraint(['camper_id'], ['campers.id'], name=op.f('fk_signups_camper_id_campers')),
     sa.PrimaryKeyConstraint('id', name=op.f('pk_signups'))
     )
     # ### end Alembic commands ###
